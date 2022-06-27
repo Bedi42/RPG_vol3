@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -9,22 +9,28 @@ import "./App.css";
 import { auth } from "./Firebase.config.js";
 
 function App() {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
+  const registerEmailRef = useRef();
+  const registerPasswordRef = useRef();
+  const loginEmailRef = useRef();
+  const loginPasswordRef = useRef();
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    register();
+    login();
+  };
+
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
         auth,
-        registerEmail,
-        registerPassword
+        registerEmailRef.current.value,
+        registerPasswordRef.current.value
       );
       console.log(user);
     } catch (error) {
@@ -36,8 +42,8 @@ function App() {
     try {
       const user = await signInWithEmailAndPassword(
         auth,
-        loginEmail,
-        loginPassword
+        loginEmailRef.current.value,
+        loginPasswordRef.current.value
       );
       console.log(user);
     } catch (error) {
@@ -51,43 +57,23 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      <form onSubmit={handleSubmit}>
         <h3>Register</h3>
+        <input type="text" placeholder="Email..." ref={registerEmailRef} />
         <input
           type="text"
-          placeholder="Email..."
-          onChange={(event) => {
-            setRegisterEmail(event.target.value);
-          }}
-        />
-        <input
-          type="password"
           placeholder="Password..."
-          onChange={(event) => {
-            setRegisterPassword(event.target.value);
-          }}
+          ref={registerPasswordRef}
         />
-        <button onClick={register}>Create User</button>
-      </div>
+        <button type="submit">Create User</button>
+      </form>
 
-      <div>
+      <form onSubmit={handleSubmit}>
         <h3>Login</h3>
-        <input
-          type="text"
-          placeholder="Email..."
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
-        <button onClick={login}>Login</button>
-      </div>
+        <input type="text" placeholder="Email..." ref={loginEmailRef} />
+        <input type="text" placeholder="Password..." ref={loginPasswordRef} />
+        <button type="submit">Login</button>
+      </form>
 
       <div>
         <h4>User Logged In:</h4>
