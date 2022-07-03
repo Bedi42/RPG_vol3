@@ -90,18 +90,31 @@ import React from "react";
 import SignUp from "./SignUp";
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DashBoard from "./DashBoard";
+import Login from "./Login";
+import ForgotPassword from "./ForgotPassword";
+import UpdateProfile from "./UpdateProfile";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
-      >
-        <div className="w-100" style={{ maxWidth: "450px" }}>
-          <SignUp />
-        </div>
-      </Container>
-    </AuthProvider>
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <div className="w-100" style={{ maxWidth: "450px" }}>
+        <Router>
+          <AuthProvider>
+            <Routes>
+              <Route exact path="/" element={<DashBoard />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/update-profile" element={<UpdateProfile />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+            </Routes>
+          </AuthProvider>
+        </Router>
+      </div>
+    </Container>
   );
 }
