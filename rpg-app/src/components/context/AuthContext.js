@@ -34,13 +34,13 @@ export const AuthProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   };
 
-  const updateEmail = (email) => {
-    return updateEmail(auth, email);
-  };
+  // const updateEmail = (email) => {
+  //   return updateEmail(auth, email);
+  // };
 
-  const updatePassword = (password) => {
-    return updatePassword(auth, password);
-  };
+  // const updatePassword = (password) => {
+  //   return updatePassword(auth, password);
+  // };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -56,8 +56,8 @@ export const AuthProvider = ({ children }) => {
     signup,
     logout,
     resetPassword,
-    updateEmail,
-    updatePassword,
+    // updateEmail,
+    // updatePassword,
   };
 
   return (
