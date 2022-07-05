@@ -94,7 +94,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DashBoard from "./DashBoard";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
-import UpdateProfile from "./UpdateProfile";
+// import UpdateProfile from "./UpdateProfile";
+import { RequireAuth } from "./RequireAuth";
 
 export default function App() {
   return (
@@ -106,10 +107,18 @@ export default function App() {
         <Router>
           <AuthProvider>
             <Routes>
-              <Route exact path="/" element={<DashBoard />} />
+              <Route
+                exact
+                path="/"
+                element={
+                  <RequireAuth>
+                    <DashBoard />
+                  </RequireAuth>
+                }
+              />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/update-profile" element={<UpdateProfile />} />
+              {/* <Route path="/update-profile" element={<UpdateProfile />} /> */}
               <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
           </AuthProvider>

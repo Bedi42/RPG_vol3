@@ -17,10 +17,10 @@ export default function ForgotPassword() {
       setMessage("");
       setError("");
       setLoading(true);
-      await resetPassword(emailRef);
+      await resetPassword(emailRef.current.value);
       setMessage("Check your inbox");
     } catch {
-      setError("Failed to log in");
+      setError("Failed to reset");
     }
     setLoading(false);
   };
