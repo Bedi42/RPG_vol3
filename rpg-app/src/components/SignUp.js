@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { Card, Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../Firebase.config";
 
 export default function SignUp() {
   const emailRef = useRef();
@@ -11,6 +13,9 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const nameRef = useRef();
+  const raceRef = useRef();
+  const classRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +33,12 @@ export default function SignUp() {
       setError("Account is not created");
     }
     setLoading(false);
+
+    await setDoc(doc(db, "characters", emailRef.current.value), {
+      name: nameRef.current.value,
+      race: raceRef.current.value,
+      class: classRef.current.value,
+    });
   };
 
   return (
@@ -48,6 +59,19 @@ export default function SignUp() {
             <Form.Group id="password-confirm">
               <Form.Label>Confirm the password</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
+            </Form.Group>
+            <h2 className="text-center mt-4 mb-4">Create Your Character</h2>
+            <Form.Group id="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" required ref={nameRef} />
+            </Form.Group>
+            <Form.Group id="race">
+              <Form.Label>Race</Form.Label>
+              <Form.Control type="text" required ref={raceRef} />
+            </Form.Group>
+            <Form.Group id="class">
+              <Form.Label>Class</Form.Label>
+              <Form.Control type="text" required ref={classRef} />
             </Form.Group>
             <Button
               disabled={loading}

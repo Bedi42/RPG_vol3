@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import AddSkill from "./AddSkill";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../Firebase.config";
 
 export default function DashBoard() {
   const [error, setError] = useState("");
@@ -19,6 +22,11 @@ export default function DashBoard() {
     }
   };
 
+  const docRef = doc(db, "characters", currentUser.email);
+  const docSnap = getDoc(docRef);
+  console.log(docSnap);
+  console.log(currentUser.email);
+
   return (
     <>
       <Card>
@@ -26,21 +34,16 @@ export default function DashBoard() {
           <h2 className="text-center mb-4">Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <h3 className="text-center">{currentUser.email}</h3>
-
-          {/* <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-            Update Profile
-          </Link> */}
         </Card.Body>
       </Card>
-      {/* <div className="w-100 text-center mt-2"> */}
       <Button
-        className="btn btn-primary w-100 mt-3 text-white"
+        className="btn btn-primary w-100 mt-3 mb-4 text-white"
         variant="link"
         onClick={handleLogout}
       >
         Log Out
       </Button>
-      {/* </div> */}
+      <AddSkill />
     </>
   );
 }
