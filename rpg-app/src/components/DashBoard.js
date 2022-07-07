@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -23,9 +23,19 @@ export default function DashBoard() {
   };
 
   const docRef = doc(db, "characters", currentUser.email);
-  const docSnap = getDoc(docRef);
-  console.log(docSnap);
-  console.log(currentUser.email);
+  const [character, setCharacter] = useState({});
+
+  useEffect(() => {
+    const unsubscribe = async () =>
+      await getDoc(docRef)
+        .then((snapshot) => {
+          setCharacter(snapshot.data());
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    return unsubscribe;
+  }, [docRef]);
 
   return (
     <>
@@ -43,7 +53,12 @@ export default function DashBoard() {
       >
         Log Out
       </Button>
-      <AddSkill />
+      <ul style={{ textDecoration: "none", listStyle: "none" }}>
+        <li>Name: {character.name}</li>
+        <li>Race: {character.race}</li>
+        <li>Class: {character.class}</li>
+      </ul>
+      {/* <AddSkill /> */}
     </>
   );
 }
