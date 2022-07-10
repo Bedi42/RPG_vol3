@@ -58,7 +58,7 @@ export default function DashBoard() {
         <li>Race: {character.race}</li>
         <li>Class: {character.class}</li>
       </ul>
-      {/* <AddSkill /> */}
+      <AddSkill />
     </>
   );
 }
