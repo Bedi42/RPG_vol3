@@ -80,9 +80,14 @@ export default function DashBoard() {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Profile</h2>
+          <h3 className="text-center mb-4">Profile</h3>
           {error && <Alert variant="danger">{error}</Alert>}
-          <h3 className="text-center">{currentUser.email}</h3>
+          {/* <h3 className="text-center">{currentUser.email}</h3> */}
+          <div style={{ textDecoration: "none", listStyle: "none" }}>
+            <h3>Name: {character.name}</h3>
+            <h3>Race: {character.race}</h3>
+            <h3>Class: {character.class}</h3>
+          </div>
         </Card.Body>
       </Card>
       <Button
@@ -92,16 +97,12 @@ export default function DashBoard() {
       >
         Log Out
       </Button>
-      <ul style={{ textDecoration: "none", listStyle: "none" }}>
-        <li>Name: {character.name}</li>
-        <li>Race: {character.race}</li>
-        <li>Class: {character.class}</li>
-      </ul>
+
       <ul>
         {skill.map((el, id) => {
           return (
             <div key={id}>
-              <div>Skill Name: {el.Skill}</div>
+              <div>{el.Skill}</div>
               <div>Level: {el.Level}</div>
               <div>Description: {el.Description}</div>
             </div>
