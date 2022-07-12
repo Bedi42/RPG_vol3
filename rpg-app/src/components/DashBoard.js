@@ -3,8 +3,16 @@ import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AddSkill from "./AddSkill";
-import { collection, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  query,
+  getDocs,
+  orderBy,
+} from "firebase/firestore";
 import { db } from "../Firebase.config";
+// import { async } from "@firebase/util";
 import { auth } from "../Firebase.config";
 
 export default function DashBoard() {
@@ -26,15 +34,6 @@ export default function DashBoard() {
   const docRef = doc(db, "characters", currentUser.email);
   const [character, setCharacter] = useState({});
 
-  // const colRef = collection(
-  //   db,
-  //   "characters",
-  //   auth.currentUser.email,
-  //   "skills",
-  //   newSkillRef.current.value
-  // );
-  // const [skill, setSkill] = useState([]);
-
   useEffect(() => {
     const unsubscribe = async () =>
       await getDoc(docRef)
@@ -47,17 +46,35 @@ export default function DashBoard() {
     return unsubscribe;
   }, []);
 
-  // useEffect(() => {
-  //   const unsubscribe = async () =>
-  //     await getDoc(colRef)
-  //       .then((snapshot) => {
-  //         setSkill(snapshot.data());
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.message);
-  //       });
-  //   return unsubscribe;
-  // }, []);
+  const colRef = query(
+    collection(db, "characters", auth.currentUser.email, "skills"),
+    orderBy("date")
+  );
+
+  const [skill, setSkill] = useState([]);
+
+  useEffect(() => {
+    setSkill([]);
+    const unsubscribe = async () =>
+      await getDocs(colRef)
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            setSkill((prev) => [
+              ...prev,
+              {
+                date: doc.data().date.toDate().toDateString(),
+                Skill: doc.data().Skill,
+                Level: doc.data().Level,
+                Description: doc.data().Description,
+              },
+            ]);
+          });
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    return unsubscribe;
+  }, []);
 
   return (
     <>
@@ -80,17 +97,17 @@ export default function DashBoard() {
         <li>Race: {character.race}</li>
         <li>Class: {character.class}</li>
       </ul>
-      {/* <ul>
-        {skill.map((el) => {
+      <ul>
+        {skill.map((el, id) => {
           return (
-            <>
+            <div key={id}>
               <div>Skill Name: {el.Skill}</div>
               <div>Level: {el.Level}</div>
               <div>Description: {el.Description}</div>
-            </>
+            </div>
           );
         })}
-      </ul> */}
+      </ul>
       <AddSkill />
     </>
   );

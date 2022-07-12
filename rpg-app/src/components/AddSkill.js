@@ -3,13 +3,14 @@ import { Card, Form, Button } from "react-bootstrap";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../Firebase.config";
 import { auth } from "../Firebase.config";
+import { Timestamp } from "firebase/firestore";
 
 export default function AddSkill() {
   const newSkillRef = useRef();
   const skillDesRef = useRef();
   const levelRef = useRef();
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -23,6 +24,7 @@ export default function AddSkill() {
         newSkillRef.current.value
       ),
       {
+        date: Timestamp.fromDate(new Date()),
         Skill: newSkillRef.current.value,
         Level: levelRef.current.value,
         Description: skillDesRef.current.value,
@@ -68,7 +70,7 @@ export default function AddSkill() {
               />
             </Form.Group>
             <Button
-              disabled={loading}
+              // disabled={loading}
               type="submit"
               className="w-100 text-center mt-2"
             >
