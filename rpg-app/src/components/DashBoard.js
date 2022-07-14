@@ -10,10 +10,12 @@ import {
   query,
   getDocs,
   orderBy,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../Firebase.config";
 // import { async } from "@firebase/util";
 import { auth } from "../Firebase.config";
+import ChangeSkill from "./ChangeSkill";
 
 export default function DashBoard() {
   const [error, setError] = useState("");
@@ -51,7 +53,7 @@ export default function DashBoard() {
     orderBy("date")
   );
 
-  const [skill, setSkill] = useState([]);
+  const [skills, setSkill] = useState([]);
 
   useEffect(() => {
     setSkill([]);
@@ -76,6 +78,15 @@ export default function DashBoard() {
     return unsubscribe;
   }, []);
 
+  // // // const [update, setUpdate] = useState();
+
+  // const handleUpdate = async (id, value) => {
+  //   await updateDoc(
+  //     doc(db, "characters", auth.currentUser.email, "skills", id),
+  //     value
+  //   );
+  // };
+
   return (
     <>
       <Card>
@@ -84,8 +95,9 @@ export default function DashBoard() {
           {error && <Alert variant="danger">{error}</Alert>}
           {/* <h3 className="text-center">{currentUser.email}</h3> */}
           <div style={{ textDecoration: "none", listStyle: "none" }}>
-            <h3>Name: {character.name}</h3>
-            <h3>Race: {character.race}</h3>
+            <h3>
+              {character.name} {character.race}
+            </h3>
             <h3>Class: {character.class}</h3>
           </div>
         </Card.Body>
@@ -99,14 +111,8 @@ export default function DashBoard() {
       </Button>
 
       <ul>
-        {skill.map((el, id) => {
-          return (
-            <div key={id}>
-              <div>{el.Skill}</div>
-              <div>Level: {el.Level}</div>
-              <div>Description: {el.Description}</div>
-            </div>
-          );
+        {skills.map((el, id) => {
+          return <ChangeSkill key={id} el={el} id={el.Skill} />;
         })}
       </ul>
       <AddSkill />
