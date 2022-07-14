@@ -10,10 +10,8 @@ import {
   query,
   getDocs,
   orderBy,
-  updateDoc,
 } from "firebase/firestore";
 import { db } from "../Firebase.config";
-// import { async } from "@firebase/util";
 import { auth } from "../Firebase.config";
 import ChangeSkill from "./ChangeSkill";
 
@@ -78,22 +76,12 @@ export default function DashBoard() {
     return unsubscribe;
   }, []);
 
-  // // // const [update, setUpdate] = useState();
-
-  // const handleUpdate = async (id, value) => {
-  //   await updateDoc(
-  //     doc(db, "characters", auth.currentUser.email, "skills", id),
-  //     value
-  //   );
-  // };
-
   return (
     <>
       <Card>
         <Card.Body>
           <h3 className="text-center mb-4">Profile</h3>
           {error && <Alert variant="danger">{error}</Alert>}
-          {/* <h3 className="text-center">{currentUser.email}</h3> */}
           <div style={{ textDecoration: "none", listStyle: "none" }}>
             <h3>
               {character.name} {character.race}

@@ -4,6 +4,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { db } from "../Firebase.config";
 import { auth } from "../Firebase.config";
 import { Timestamp } from "firebase/firestore";
+import Accordion from "react-bootstrap/Accordion";
 
 export default function AddSkill() {
   const newSkillRef = useRef();
@@ -34,81 +35,52 @@ export default function AddSkill() {
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <Form onSubmit={handleAdd}>
-            <Form.Group id="newSkill">
-              <Form.Label>New Skill</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Skill Name"
-                required
-                ref={newSkillRef}
-              />
-            </Form.Group>
-            <Form.Select
-              ref={levelRef}
-              className="mt-2"
-              aria-label="Default select example"
-            >
-              <option>Level</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </Form.Select>
-            <Form.Group id="skillDescription">
-              {/* <Form.Label className="mt-4">Skill Description</Form.Label> */}
-              <Form.Control
+      {/* <Card>
+        <Card.Body> */}
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>New Skill</Accordion.Header>
+          <Accordion.Body>
+            <Form onSubmit={handleAdd}>
+              <Form.Group id="newSkill">
+                <Form.Control
+                  type="text"
+                  placeholder="Skill Name"
+                  required
+                  ref={newSkillRef}
+                />
+              </Form.Group>
+              <Form.Select
+                ref={levelRef}
                 className="mt-2"
-                as="textarea"
-                rows={3}
-                placeholder="Skill Description"
-                required
-                ref={skillDesRef}
-              />
-            </Form.Group>
-            <Button
-              // disabled={loading}
-              type="submit"
-              className="w-100 text-center mt-2"
-            >
-              Add Skill
-            </Button>
-          </Form>
-          {/* <Form>
-            <Form.Check type="switch" id="custom-switch" label="Active" />
-          </Form> */}
-          {/* <Form>
-            {["checkbox", "radio"].map((type) => (
-              <div key={`inline-${type}`} className="mb-3">
-                <Form.Check
-                  inline
-                  label="1"
-                  name="group1"
-                  type={type}
-                  id={`inline-${type}-1`}
+                aria-label="Default select example"
+              >
+                <option>Level</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </Form.Select>
+              <Form.Group id="skillDescription">
+                <Form.Control
+                  className="mt-2"
+                  as="textarea"
+                  rows={3}
+                  placeholder="Skill Description"
+                  required
+                  ref={skillDesRef}
                 />
-                <Form.Check
-                  inline
-                  label="2"
-                  name="group1"
-                  type={type}
-                  id={`inline-${type}-2`}
-                />
-                <Form.Check
-                  inline
-                  disabled
-                  label="3 (disabled)"
-                  type={type}
-                  id={`inline-${type}-3`}
-                />
-              </div>
-            ))}
-          </Form> */}
-        </Card.Body>
-      </Card>
+              </Form.Group>
+              <Button type="submit" className="w-100 text-center mt-2">
+                Add Skill
+              </Button>
+            </Form>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+      {/* </Card.Body>
+      </Card> */}
     </>
   );
 }
