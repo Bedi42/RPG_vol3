@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, Form } from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AddSkill from "./AddSkill";
@@ -98,11 +98,11 @@ export default function DashBoard() {
         Log Out
       </Button>
 
-      <ul>
+      <Form>
         {skills.map((el, id) => {
           return <ChangeSkill key={id} el={el} id={el.Skill} />;
         })}
-      </ul>
+      </Form>
       <AddSkill />
     </>
   );

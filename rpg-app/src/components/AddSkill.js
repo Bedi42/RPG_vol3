@@ -10,11 +10,13 @@ export default function AddSkill() {
   const newSkillRef = useRef();
   const skillDesRef = useRef();
   const levelRef = useRef();
+  // const switchRef = useRef();
+  // const checkboxRef = useRef();
 
   // const [loading, setLoading] = useState(false);
 
-  const handleAdd = async (e) => {
-    e.preventDefault();
+  const handleAdd = async () => {
+    // e.preventDefault();
 
     await setDoc(
       doc(
@@ -29,6 +31,8 @@ export default function AddSkill() {
         Skill: newSkillRef.current.value,
         Level: levelRef.current.value,
         Description: skillDesRef.current.value,
+        // Switch: switchRef,
+        // Checkbox: checkboxRef,
       }
     );
   };
@@ -75,6 +79,47 @@ export default function AddSkill() {
               <Button type="submit" className="w-100 text-center mt-2">
                 Add Skill
               </Button>
+              {/* <Form ref={switchRef} className="display-none">
+                <Form.Check type="switch" id="custom-switch" label="Active" />
+              </Form>
+              <Form className="mb-3 display-none" ref={checkboxRef}>
+                <Form.Check
+                  inline
+                  label="1"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox1"
+                />
+                <Form.Check
+                  inline
+                  label="2"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox2"
+                />
+                <Form.Check
+                  inline
+                  label="3"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox3"
+                />
+                <Form.Check
+                  inline
+                  label="4"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox4"
+                />
+                <Form.Check
+                  inline
+                  label="5"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox5"
+                />
+              </Form> */}
+              {/* </div> */}
             </Form>
           </Accordion.Body>
         </Accordion.Item>

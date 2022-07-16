@@ -6,13 +6,14 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase.config";
 import { auth } from "../Firebase.config";
 import Accordion from "react-bootstrap/Accordion";
+import { useState } from "react";
 
 export default function ChangeSkill({ el, id }) {
   const levelRef = useRef();
   const descRef = useRef();
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     await updateDoc(
       doc(db, "characters", auth.currentUser.email, "skills", id),
       {
@@ -21,6 +22,15 @@ export default function ChangeSkill({ el, id }) {
       }
     );
   };
+
+  // const handleSwitch = () => {
+  // const [switch, setSwitch] = useState(false)
+  // setSwitch(prev => ({
+  //   ...prev,
+  //   switch: true
+  // }))
+  // }
+
   return (
     <Accordion defaultActiveKey="0" className="mb-3">
       <Accordion.Item eventKey="0">
@@ -57,10 +67,10 @@ export default function ChangeSkill({ el, id }) {
                 ref={descRef}
               />
             </FloatingLabel>
-            {/* <Form>
+            <Form>
               <Form.Check type="switch" id="custom-switch" label="Active" />
-            </Form> */}
-            {/* <Form className="mb-3">
+            </Form>
+            <Form className="mb-3">
               <Form.Check
                 inline
                 label="1"
@@ -96,7 +106,7 @@ export default function ChangeSkill({ el, id }) {
                 type="checkbox"
                 id="checkbox5"
               />
-            </Form> */}
+            </Form>
             <Button
               className="mt-2"
               style={{ width: "100px" }}
