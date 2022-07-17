@@ -6,7 +6,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase.config";
 import { auth } from "../Firebase.config";
 import Accordion from "react-bootstrap/Accordion";
-import { useState } from "react";
 
 export default function ChangeSkill({ el, id }) {
   const levelRef = useRef();
@@ -32,9 +31,11 @@ export default function ChangeSkill({ el, id }) {
   // }
 
   return (
-    <Accordion defaultActiveKey="0" className="mb-3">
+    <Accordion className="mb-3">
       <Accordion.Item eventKey="0">
-        <Accordion.Header>{el.Skill}</Accordion.Header>
+        <Accordion.Header>
+          {el.Skill} {el.Level}
+        </Accordion.Header>
         <Accordion.Body>
           <Form
             key={id}
@@ -46,18 +47,20 @@ export default function ChangeSkill({ el, id }) {
             }}
           >
             <Form.Select
-              style={{ width: "70px" }}
               ref={levelRef}
               className="mt-2 mb-2"
               size="sm"
               aria-label="Default select example"
             >
-              <option>{el.Level}</option>
+              <option>Level</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
+              <option value="5">6</option>
+              <option value="5">7</option>
+              <option value="5">8</option>
             </Form.Select>
             <FloatingLabel controlId="floatingTextarea" label="Description">
               <Form.Control
@@ -67,10 +70,10 @@ export default function ChangeSkill({ el, id }) {
                 ref={descRef}
               />
             </FloatingLabel>
-            <Form>
+            {/* <Form>
               <Form.Check type="switch" id="custom-switch" label="Active" />
-            </Form>
-            <Form className="mb-3">
+            </Form> */}
+            {/* <Form className="mb-3">
               <Form.Check
                 inline
                 label="1"
@@ -106,7 +109,7 @@ export default function ChangeSkill({ el, id }) {
                 type="checkbox"
                 id="checkbox5"
               />
-            </Form>
+            </Form> */}
             <Button
               className="mt-2"
               style={{ width: "100px" }}

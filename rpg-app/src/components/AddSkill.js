@@ -41,7 +41,7 @@ export default function AddSkill() {
     <>
       {/* <Card>
         <Card.Body> */}
-      <Accordion defaultActiveKey="0">
+      <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>New Skill</Accordion.Header>
           <Accordion.Body>
@@ -65,6 +65,9 @@ export default function AddSkill() {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="5">6</option>
+                <option value="5">7</option>
+                <option value="5">8</option>
               </Form.Select>
               <Form.Group id="skillDescription">
                 <Form.Control

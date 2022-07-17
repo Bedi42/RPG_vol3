@@ -98,11 +98,11 @@ export default function DashBoard() {
         Log Out
       </Button>
 
-      <Form>
+      <div>
         {skills.map((el, id) => {
           return <ChangeSkill key={id} el={el} id={el.Skill} />;
         })}
-      </Form>
+      </div>
       <AddSkill />
     </>
   );
