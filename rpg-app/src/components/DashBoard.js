@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Card, Button, Alert, Form } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Alert,
+  Form,
+  Col,
+  Row,
+  FloatingLabel,
+} from "react-bootstrap";
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import AddSkill from "./AddSkill";
@@ -53,6 +61,9 @@ export default function DashBoard() {
 
   const [skills, setSkill] = useState([]);
 
+  const [hpValue, setHpValue] = useState("");
+  const [expValue, setExpValue] = useState("");
+
   useEffect(() => {
     setSkill([]);
     const unsubscribe = async () =>
@@ -78,25 +89,68 @@ export default function DashBoard() {
 
   return (
     <>
-      <Card>
+      <Card className="mb-3">
         <Card.Body>
           <h3 className="text-center mb-4">Profile</h3>
           {error && <Alert variant="danger">{error}</Alert>}
           <div style={{ textDecoration: "none", listStyle: "none" }}>
-            <h3>
+            <h3 className="text-center w-100">
               {character.name} {character.race}
             </h3>
             <h3>Class: {character.class}</h3>
           </div>
+          <Form className="mt-3">
+            <Form.Group as={Row}>
+              <Form.Label>HP</Form.Label>
+              <Col sm="8">
+                <Form.Range
+                  defaultValue={hpValue}
+                  onChange={(e) => setHpValue(e.target.value)}
+                  tooltip="auto"
+                />
+              </Col>
+              <Col sm="3">
+                <Form.Control defaultValue={hpValue} />
+              </Col>
+            </Form.Group>
+          </Form>
+          <Form className="mt-3">
+            <Form.Group as={Row}>
+              <Form.Label>EXP</Form.Label>
+              <Col sm="8">
+                <Form.Range
+                  defaultValue={expValue}
+                  onChange={(e) => setExpValue(e.target.value)}
+                />
+              </Col>
+              <Col sm="3">
+                <Form.Control defaultValue={expValue} />
+              </Col>
+            </Form.Group>
+          </Form>
+          <FloatingLabel
+            controlId="floatingTextarea"
+            label="Items"
+            className="mt-4"
+          >
+            <Form.Control
+              as="textarea"
+              // style={{ height: "150px" }}
+              // defaultValue={el.Description}
+              // ref={itemRef}
+            />
+          </FloatingLabel>
+          <Button
+            className="mt-4 w-100 text-center"
+            // style={{ width: "100px" }}
+            variant="primary"
+            size="sm"
+            type="submit"
+          >
+            Update
+          </Button>
         </Card.Body>
       </Card>
-      <Button
-        className="btn btn-primary w-100 mt-3 mb-4 text-white"
-        variant="link"
-        onClick={handleLogout}
-      >
-        Log Out
-      </Button>
 
       <div>
         {skills.map((el, id) => {
@@ -104,6 +158,13 @@ export default function DashBoard() {
         })}
       </div>
       <AddSkill />
+      <Button
+        className="btn btn-primary w-100 mt-3 mb-4 text-white"
+        variant="link"
+        onClick={handleLogout}
+      >
+        Log Out
+      </Button>
     </>
   );
 }

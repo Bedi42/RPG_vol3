@@ -11,8 +11,8 @@ export default function ChangeSkill({ el, id }) {
   const levelRef = useRef();
   const descRef = useRef();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     await updateDoc(
       doc(db, "characters", auth.currentUser.email, "skills", id),
       {
@@ -70,46 +70,6 @@ export default function ChangeSkill({ el, id }) {
                 ref={descRef}
               />
             </FloatingLabel>
-            {/* <Form>
-              <Form.Check type="switch" id="custom-switch" label="Active" />
-            </Form> */}
-            {/* <Form className="mb-3">
-              <Form.Check
-                inline
-                label="1"
-                name="group1"
-                type="checkbox"
-                id="checkbox1"
-              />
-              <Form.Check
-                inline
-                label="2"
-                name="group1"
-                type="checkbox"
-                id="checkbox2"
-              />
-              <Form.Check
-                inline
-                label="3"
-                name="group1"
-                type="checkbox"
-                id="checkbox3"
-              />
-              <Form.Check
-                inline
-                label="4"
-                name="group1"
-                type="checkbox"
-                id="checkbox4"
-              />
-              <Form.Check
-                inline
-                label="5"
-                name="group1"
-                type="checkbox"
-                id="checkbox5"
-              />
-            </Form> */}
             <Button
               className="mt-2"
               style={{ width: "100px" }}
