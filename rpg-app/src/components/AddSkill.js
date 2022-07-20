@@ -10,10 +10,6 @@ export default function AddSkill() {
   const newSkillRef = useRef();
   const skillDesRef = useRef();
   const levelRef = useRef();
-  // const switchRef = useRef();
-  // const checkboxRef = useRef();
-
-  // const [loading, setLoading] = useState(false);
 
   const handleAdd = async () => {
     // e.preventDefault();
@@ -31,8 +27,6 @@ export default function AddSkill() {
         Skill: newSkillRef.current.value,
         Level: levelRef.current.value,
         Description: skillDesRef.current.value,
-        // Switch: switchRef,
-        // Checkbox: checkboxRef,
       }
     );
   };
@@ -65,9 +59,11 @@ export default function AddSkill() {
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
-                <option value="5">6</option>
-                <option value="5">7</option>
-                <option value="5">8</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
               </Form.Select>
               <Form.Group id="skillDescription">
                 <Form.Control

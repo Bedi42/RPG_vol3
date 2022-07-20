@@ -22,6 +22,7 @@ import {
 import { db } from "../Firebase.config";
 import { auth } from "../Firebase.config";
 import ChangeSkill from "./ChangeSkill";
+// import Statistics from "./Statistics";
 
 export default function DashBoard() {
   const [error, setError] = useState("");
@@ -98,8 +99,9 @@ export default function DashBoard() {
               {character.name} {character.race}
             </h3>
             <h3>Class: {character.class}</h3>
+            {/* <Statistics /> */}
           </div>
-          <Form className="mt-3">
+          {/* <Form className="mt-3">
             <Form.Group as={Row}>
               <Form.Label>HP</Form.Label>
               <Col sm="8">
@@ -148,7 +150,7 @@ export default function DashBoard() {
             type="submit"
           >
             Update
-          </Button>
+          </Button> */}
         </Card.Body>
       </Card>
 

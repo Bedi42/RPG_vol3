@@ -6,13 +6,14 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase.config";
 import { auth } from "../Firebase.config";
 import Accordion from "react-bootstrap/Accordion";
+import { useState } from "react";
 
 export default function ChangeSkill({ el, id }) {
   const levelRef = useRef();
   const descRef = useRef();
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     await updateDoc(
       doc(db, "characters", auth.currentUser.email, "skills", id),
       {
@@ -22,13 +23,11 @@ export default function ChangeSkill({ el, id }) {
     );
   };
 
-  // const handleSwitch = () => {
-  // const [switch, setSwitch] = useState(false)
-  // setSwitch(prev => ({
-  //   ...prev,
-  //   switch: true
-  // }))
-  // }
+  const [toggle, setToggle] = useState(false);
+
+  const toggler = () => {
+    toggle ? setToggle(false) : setToggle(true);
+  };
 
   return (
     <Accordion className="mb-3">
@@ -52,15 +51,17 @@ export default function ChangeSkill({ el, id }) {
               size="sm"
               aria-label="Default select example"
             >
-              <option>Level</option>
+              <option>{el.Level}</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-              <option value="5">6</option>
-              <option value="5">7</option>
-              <option value="5">8</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
             </Form.Select>
             <FloatingLabel controlId="floatingTextarea" label="Description">
               <Form.Control
@@ -70,6 +71,53 @@ export default function ChangeSkill({ el, id }) {
                 ref={descRef}
               />
             </FloatingLabel>
+
+            <Form.Check
+              onChange={toggler}
+              type="switch"
+              id="custom-switch"
+              label="Active"
+            />
+            {toggle ? (
+              <Form.Group>
+                <Form.Check
+                  inline
+                  label="1"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox1"
+                />
+                <Form.Check
+                  inline
+                  label="2"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox2"
+                />
+                <Form.Check
+                  inline
+                  label="3"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox3"
+                />
+                <Form.Check
+                  inline
+                  label="4"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox4"
+                />
+                <Form.Check
+                  inline
+                  label="5"
+                  name="group1"
+                  type="checkbox"
+                  id="checkbox5"
+                />
+              </Form.Group>
+            ) : null}
+
             <Button
               className="mt-2"
               style={{ width: "100px" }}
